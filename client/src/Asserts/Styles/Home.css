@@ -1,0 +1,163 @@
+/* Nav */
+
+.main_logo_style {
+    height: 60px;
+    width: 200px;
+}
+
+.nav-item:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu {
+    display: none;
+}
+
+.nav_text_style {
+    color: #1EB2A6;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.nav_text_style:hover {
+    color: #0f877d;
+}
+
+.home_nav_main {
+    box-shadow: 0 5px 6px rgba(0, 0, 0, 0.196);
+}
+
+/* Customize the dropdown icon */
+.fas {
+    color: #1EB2A6;
+}
+
+.fas:hover {
+    color: #0f877d;
+}
+
+
+/* Carousal */
+
+.carousel-item::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.862);
+    opacity: 0.8;
+}
+
+.slider-btn .btn-1 {
+    background-color: #1eb2a6b1;
+    color: white;
+    margin-right: 20px;
+}
+
+.slider-btn .btn-2 {
+    color: rgba(0, 0, 0, 0.748);
+    background-color: rgba(255, 255, 255, 0.248);
+}
+
+/* AboutUs */
+
+.about_content {
+    margin-top: 25px;
+    background-color: #1eb2a69a;
+    padding: 10px;
+    border-radius: 20px;
+    text-align: justify;
+}
+
+.aboutus_p {
+    font-size: 15px;
+}
+
+.aboutus_main_text {
+    color: #0f877d;
+    font-weight: bold;
+}
+
+/* Features */
+
+.features_main_div {
+    text-align: center;
+}
+
+.features_icon {
+    height: 50px;
+    width: 50px;
+}
+
+.features_sub_div {
+    background-color: #1eb2a69a;
+    border-radius: 20px;
+    margin: 10px;
+    padding: 10px;
+    height: 310px;
+    overflow: hidden;
+}
+
+/* Footer */
+
+.footer {
+    padding-top: 20px;
+    background-color: rgb(59, 51, 51);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* margin-top: 300px; */
+}
+
+.footer-links,
+.footer-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.footer_link_style {
+    text-decoration: none;
+    color: #3bb0a7;
+}
+
+.footer_link_style:hover {
+    color: white;
+}
+
+.footer-icons a {
+    margin: 0 10px;
+}
+
+.footer_copyright {
+    color: #3bb0a7;
+    text-align: center;
+}
+
+
+/* Contact Us */
+.contactus_container {
+    background-image: url(../Images/contactus.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+    position: relative;
+}
+
+.contact_container1 {
+    padding-top: 320px;
+}
+
+.contactus_main {
+    border: 1px solid #1EB2A6;
+    position: relative;
+    background-color:#1EB2A6;
+    border-radius: 20px;
+    height: 400px;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
