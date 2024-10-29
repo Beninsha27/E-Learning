@@ -1,0 +1,15 @@
+.adminhome_main {
+    text-align: right;
+    margin-top: 10px;
+    padding-right: 200px;
+    padding-top: 250px;
+    font-family: 'Lucida Sans';
+    background-image: url(../Images/admin.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    position: relative;
+}
+.adminhome_h1{
+    font-size: 80px;
+}

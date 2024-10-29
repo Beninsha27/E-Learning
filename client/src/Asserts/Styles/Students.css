@@ -1,0 +1,167 @@
+/* Login */
+.stu_login_container{
+    width: 100%;
+    max-width: 600px;
+    margin-top: 60px;
+    background-color: #1EB2A6;
+    color: #1e3835;
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 60px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.stu_login_main{
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+.stu_login_main_text{
+    padding-top: 6px;
+}
+
+.stu_login-form_sty {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: larger;
+    padding-top: 30px;
+}
+
+.stu_password-input-wrapper {
+    position: relative;
+}
+
+.stu_password-toggle-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.stu_login_input_style {
+    height: 50px;
+    width: 100%;
+    border: none;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-top: 5px;
+}
+
+.stu_button-center {
+    text-align: center;
+}
+
+.stu_login_button {
+    width: 100%;
+    height: 50px;
+    border: none;
+    font-weight: bolder;
+    letter-spacing: 2px;
+    background-color: #fff;
+    color: #1EB2A6;
+    border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.stu_login_button:hover {
+    background-color: #1e3835;
+    color: #fff;
+}
+
+.stu_forgot-text {
+    font-size: small;
+    color: #2e635e;
+    text-align: right;
+}
+
+.stu_register_text {
+    font-size: small;
+    color: #1e3835;
+    text-align: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .stu_login_container {
+        padding: 20px;
+        margin-top: 50px;
+    }
+
+    .stu_login_input_style {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .stu_login_button {
+        height: 45px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stu_login_container {
+        padding: 15px;
+    }
+
+    .stu_login_input_style {
+        height: 45px;
+        padding: 10px;
+    }
+
+    .stu_login_button {
+        height: 40px;
+        font-size: 13px;
+    }
+
+    .stu_forgot-text {
+        font-size: 12px;
+    }
+
+    .stu_register_text {
+        font-size: 12px;
+    }
+}
+
+
+/* Register */
+.stu_reg_container{
+    width: 60%;
+    /* max-width: 600px; */
+    margin-top: 60px;
+    background-color: #1EB2A6;
+    color: #1e3835;
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 60px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+.stu_reg_profile{
+    height: 200px;
+    width: 200px;
+    border-radius: 100%;
+    /* border-color: black; */
+    border-width: 10px solid black;
+}
+.reg_img{
+    padding-top: 20px;
+    text-align: center;
+}
+
+.stu_password-input-wrapper {
+    position: relative;
+}
+
+.stu_password-toggle-icon {
+    position: absolute;
+    right: 10px;
+    top: 70%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
