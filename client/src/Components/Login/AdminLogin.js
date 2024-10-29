@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import '../../Asserts/Styles/Login.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 function AdminLogin() {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate=useNavigate()
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -15,6 +16,7 @@ function AdminLogin() {
     const handleLogin = () => {
         if (email === 'admin' && password === '123') {
             alert("Login Success")
+            navigate('/AdminHome');
         } else {
 
             alert("Login Failed")

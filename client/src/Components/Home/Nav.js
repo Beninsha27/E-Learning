@@ -1,6 +1,6 @@
 import React from 'react'
 import logo from '../../Asserts/Images/Logo.png'
-import '../../Asserts/Styles/Home.css'
+import '../../Asserts/Styles/Trainer.css'
 import { Link } from 'react-router-dom'
 
 function Nav() {
@@ -16,23 +16,10 @@ function Nav() {
             <span class="navbar-toggler-icon"></span>
           </button>
 
+
           <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav ">
-              <li class="nav-item p-2">
-                <Link class="nav-link nav_text_style" to="/">HOME</Link>
-              </li>
-              <li class="nav-item p-2">
-                <Link class="nav-link nav_text_style" to="/about">ABOUT US</Link>
-              </li>
-              <li class="nav-item p-2">
-                <Link class="nav-link nav_text_style" to="/contact">CONTACT US</Link>
-
-              </li>
-              <li class="nav-item p-2">
-                <Link class="nav-link nav_text_style" to="/login">LOGIN</Link>
-
-              </li>
-              {/* <div className="nav-item dropdown p-2">
+              <div className="nav-item dropdown p-2">
                 <a
                   href="#"
                   className="nav-link dropdown-toggle nav_text_style"
@@ -45,22 +32,37 @@ function Nav() {
                 </a>
                 <ul className="dropdown-menu m-0" aria-labelledby="loginDropdown">
                   <li>
-                    <a className="dropdown-item nav_text_style" >
+                    <Link to='/StudentLogin' className="dropdown-item nav_text_style" >
                       Student
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a className="dropdown-item nav_text_style">
+                    <Link to='/TrainerLogin' className="dropdown-item nav_text_style">
                       Trainer
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a className="dropdown-item nav_text_style">
+                    <Link to='/ParentLogin' className="dropdown-item nav_text_style">
                       Parent
-                    </a>
+                    </Link>
                   </li>
                 </ul>
-              </div> */}
+              </div>
+              <li class="nav-item p-2">
+                <Link class="nav-link nav_text_style" to="/">HOME</Link>
+              </li>
+              <li class="nav-item p-2">
+                <Link class="nav-link nav_text_style" to="/about">ABOUT US</Link>
+              </li>
+              {/* <li class="nav-item p-2">
+                <Link class="nav-link nav_text_style" to="/contact">CONTACT US</Link>
+
+              </li> */}
+              {/* <li class="nav-item p-2">
+                <Link class="nav-link nav_text_style" to="/login">LOGIN</Link>
+
+              </li> */}
+
 
               {/* <div className="nav-item dropdown  p-2">
                 <a

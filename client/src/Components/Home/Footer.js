@@ -11,7 +11,6 @@ function Footer() {
           <div className='footer-links'>
             <p><Link to="/" className='footer_link_style'>Home</Link></p>
             <p><Link to="/about" className='footer_link_style'>About Us</Link></p>
-            <p><Link to="/contact" className='footer_link_style'>Contact Us</Link></p>
           </div>
           <div className='footer-icons'>
             <a href="https://wa.me/" target="_blank" rel="noopener noreferrer"><FaWhatsapp className='footer_link_style' size={25} /></a>
