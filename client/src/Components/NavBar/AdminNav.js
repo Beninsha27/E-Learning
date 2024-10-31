@@ -1,10 +1,15 @@
 import React from 'react'
 import logo from '../../Asserts/Images/Logo.png'
 import '../../Asserts/Styles/Home.css'
-import { Link } from 'react-router-dom'
-import { Button } from 'bootstrap'
+import { Link, useNavigate } from 'react-router-dom'
 
 function AdminNav() {
+    const navigate = useNavigate()
+    const logout=()=>{
+        localStorage.clear()
+        alert("Loged out")
+        navigate('/')
+    }
     return (
         <>
             <div>
@@ -37,7 +42,7 @@ function AdminNav() {
                                     <Link class="nav-link nav_text_style" to="">PARENTS</Link>
                                 </li>
                                 <li class="nav-item p-2">
-                                    <button class="nav-link nav_text_style" to="">LOGOUT</button>
+                                    <button class="nav-link nav_text_style" onClick={logout}>LOGOUT</button>
                                 </li>
                             </ul>
                         </div>

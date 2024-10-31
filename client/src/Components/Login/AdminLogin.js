@@ -1,40 +1,55 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../Asserts/Styles/Login.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 function AdminLogin() {
     const [showPassword, setShowPassword] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const navigate=useNavigate()
+    const [data, setdata] = useState({
+        username: "",
+        password: "",
+    });
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (localStorage.getItem("adminlog") != null) {
+            navigate("/AdminHome")
+        }
+    })
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
-
+    const handleChange = (e) => {
+        setdata({ ...data, [e.target.name]: e.target.value });
+        console.log(data);
+    };
     const handleLogin = () => {
-        if (email === 'admin' && password === '123') {
-            alert("Login Success")
-            navigate('/AdminHome');
-        } else {
-
-            alert("Login Failed")
+        if (data.username === 'admin' && data.password === 'admin123') {
+            localStorage.setItem("adminlog", 1);
+            alert("Login Success !")
+            window.location.reload()
+        } else if (data.username != 'admin' || data.password != 'admin123') {
+            alert("Username or Password Incorrect !")
+        }
+        else {
+            alert("Something went wrong !")
         }
     };
 
     return (
         <>
             <div className='container login_container'>
-                <form>
+                <form onSubmit={handleLogin}>
                     <div className='login-form_sty'>
-                        <div className=''>
+                        <div >
                             <label className='mb-2'>User Name :</label>
                             <input
-                                type='email'
+                                type='text'
+                                name='username'
                                 className='login_input_style form-control'
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                value={data.username}
+                                onChange={handleChange}
                             />
                         </div>
                         <div className='mt-4 mb-4'>
@@ -42,9 +57,10 @@ function AdminLogin() {
                             <div className='password-input-wrapper'>
                                 <input
                                     type={showPassword ? 'text' : 'password'}
+                                    name='password'
                                     className='login_input_style form-control'
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    value={data.password}
+                                    onChange={handleChange}
                                 />
                                 <span className='password-toggle-icon' onClick={togglePasswordVisibility}>
                                     {showPassword ? <FaEyeSlash /> : <FaEye />}

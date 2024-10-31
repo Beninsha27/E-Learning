@@ -35,12 +35,12 @@ function LoginStudent() {
                         </div>
                         <div className="mt-4">
                             <label className="mb-2">Password</label>
-                            <div className="stu_password-input-wrapper">
+                            <div className="password-input-wrapper">
                                 <input
                                     type={showPassword ? 'text' : 'password'}
                                     className="stu_login_input_style form-control"
                                 />
-                                <span className="stu_password-toggle-icon" onClick={togglePasswordVisibility}>
+                                <span className="password-toggle-icon" onClick={togglePasswordVisibility}>
                                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                                 </span>
                             </div>

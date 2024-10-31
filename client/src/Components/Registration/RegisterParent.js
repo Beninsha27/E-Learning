@@ -5,7 +5,6 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import profile from '../../Asserts/Images/profile.jpg';
 
 function RegisterParent() {
-    const [selectedImage, setSelectedImage] = useState(profile);
     const [showpassword, setShowPassword] = useState(false)
     const [showpassword1, setShowPassword1] = useState(false)
     const navigate = useNavigate()
@@ -18,19 +17,6 @@ function RegisterParent() {
     const tooglePasswordVisibility1 = () => {
         setShowPassword1(!showpassword1)
     }
-    const handleImageChange = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                setSelectedImage(event.target.result);
-            };
-            reader.readAsDataURL(e.target.files[0]);
-        }
-    };
-
-    const handleImageClick = () => {
-        document.getElementById('fileInput').click();
-    };
     return (
         <>
             <div className="container trainer_reg_container">
