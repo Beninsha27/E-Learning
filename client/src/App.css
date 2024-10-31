@@ -1,0 +1,33 @@
+/* WebKit Browsers */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background:#3bb0a7 ;
+  }
+  
+  /* Firefox */
+  .scrollable {
+    scrollbar-color: #888 #f1f1f1; /* thumb color, track color */
+    scrollbar-width: thin; /* Options: auto, thin, none */
+  }
+  
+  @media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 8px; /* Smaller scrollbar on mobile */
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #666; /* Darker color for mobile */
+  }
+}

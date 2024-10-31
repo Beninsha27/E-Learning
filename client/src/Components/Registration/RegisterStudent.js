@@ -6,8 +6,8 @@ import profile from '../../Asserts/Images/profile.jpg';
 
 function RegisterStudent() {
   const navigate = useNavigate();
-  const [showpassword, setShowPassword] = useState(false)
-  const [showpassword1, setShowPassword1] = useState(false)
+  const [showpassword, setShowPassword] = useState(false);
+  const [showpassword1, setShowPassword1] = useState(false);
 
   const [selectedImage, setSelectedImage] = useState(profile);
   const [formData, setFormData] = useState({
@@ -23,11 +23,11 @@ function RegisterStudent() {
   const [errors, setErrors] = useState({});
 
   const tooglePasswordVisibility = () => {
-    setShowPassword(!showpassword)
-  }
+    setShowPassword(!showpassword);
+  };
   const tooglePasswordVisibility1 = () => {
-    setShowPassword1(!showpassword1)
-  }
+    setShowPassword1(!showpassword1);
+  };
 
   const goback = () => {
     navigate(-1);
@@ -49,27 +49,77 @@ function RegisterStudent() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: '', // Clear error for the current field
+    }));
   };
+
 
   const validateFields = () => {
     const newErrors = {};
-    if (!formData.firstName) newErrors.firstName = 'First Name is required';
-    if (!formData.lastName) newErrors.lastName = 'Last Name is required';
-    if (!formData.mobileNumber) newErrors.mobileNumber = 'Mobile Number is required';
-    if (!formData.email) newErrors.email = 'E-Mail is required';
-    if (!formData.password) newErrors.password = 'Password is required';
-    if (!formData.confirmPassword) newErrors.confirmPassword = 'Confirm Password is required';
-    if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
+
+    // Validate first name (only letters)
+    if (!formData.firstName) {
+      newErrors.firstName = 'First Name is required';
+    } else if (!/^[A-Za-z]+$/.test(formData.firstName)) {
+      newErrors.firstName = 'First Name must contain only letters';
+    }
+
+    // Validate last name (only letters)
+    if (!formData.lastName) {
+      newErrors.lastName = 'Last Name is required';
+    } else if (!/^[A-Za-z]+$/.test(formData.lastName)) {
+      newErrors.lastName = 'Last Name must contain only letters';
+    }
+
+    // Validate mobile number (10 digits)
+    if (!formData.mobileNumber) {
+      newErrors.mobileNumber = 'Mobile Number is required';
+    } else if (!/^\d{10}$/.test(formData.mobileNumber)) {
+      newErrors.mobileNumber = 'Mobile Number must be 10 digits';
+    }
+
+    // Validate email format
+    if (!formData.email) {
+      newErrors.email = 'E-Mail is required';
+    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
+      newErrors.email = 'Email must be in correct format';
+    }
+
+    // Validate password
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+    } else if (
+      !/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{6,}/.test(formData.password)
+    ) {
+      newErrors.password =
+        'Password must be at least 6 characters long, and include a combination of uppercase, lowercase, number, and symbol';
+    }
+
+    // Validate confirm password
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = 'Confirm Password is required';
+    } else if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+
+    // Validate date of birth
     if (!formData.dateOfBirth) newErrors.dateOfBirth = 'Date of Birth is required';
+
+    // Validate gender
     if (!formData.gender) newErrors.gender = 'Gender is required';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -77,6 +127,7 @@ function RegisterStudent() {
       console.log('Form submitted:', formData);
     }
   };
+
 
   return (
     <>
@@ -186,7 +237,7 @@ function RegisterStudent() {
               <div>
                 <label className="mb-2">E-Mail</label>
                 <input
-                  type="email"
+                  type="text"
                   name="email"
                   className={`stu_login_input_style form-control ${errors.email ? 'is-invalid' : ''}`}
                   value={formData.email}
@@ -198,25 +249,27 @@ function RegisterStudent() {
           </div>
           <div className="row mt-4">
             <div className="col-6">
-              <div className='stu_password-input-wrapper'>
+              <div className="stu_password-input-wrapper">
                 <label className="mb-2">Password</label>
                 <input
                   type={showpassword ? 'text' : 'password'}
                   name="password"
-                  className={`stu_login_input_style  form-control ${errors.password ? 'is-invalid' : ''}`}
+                  className={`stu_login_input_style form-control ${errors.password ? 'is-invalid' : ''}`}
                   value={formData.password}
                   onChange={handleChange}
                 />
-                <span className='stu_password-toggle-icon'
-                  onClick={tooglePasswordVisibility}>
-                  {showpassword ? <FaEyeSlash /> : <FaEye />}
-                </span>
+                {/* Conditionally render the icon if there's no password error */}
+                {!errors.password && (
+                  <span className="stu_password-toggle-icon" onClick={tooglePasswordVisibility}>
+                    {showpassword ? <FaEyeSlash /> : <FaEye />}
+                  </span>
+                )}
                 {errors.password && <div className="invalid-feedback">{errors.password}</div>}
               </div>
             </div>
 
             <div className="col-6">
-              <div className='stu_password-input-wrapper'>
+              <div className="stu_password-input-wrapper">
                 <label className="mb-2">Confirm Password</label>
                 <input
                   type={showpassword1 ? 'text' : 'password'}
@@ -225,14 +278,17 @@ function RegisterStudent() {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                 />
-                <span className='stu_password-toggle-icon'
-                  onClick={tooglePasswordVisibility1}>
-                  {showpassword1 ? <FaEyeSlash /> : <FaEye />}
-                </span>
+                {/* Conditionally render the icon if there's no confirmPassword error */}
+                {!errors.confirmPassword && (
+                  <span className="stu_password-toggle-icon" onClick={tooglePasswordVisibility1}>
+                    {showpassword1 ? <FaEyeSlash /> : <FaEye />}
+                  </span>
+                )}
                 {errors.confirmPassword && <div className="invalid-feedback">{errors.confirmPassword}</div>}
               </div>
             </div>
           </div>
+
 
           <div className="stu_button-center mt-3">
             <button type="submit" className="btn btn-light mt-4 stu_login_button">REGISTER</button>
