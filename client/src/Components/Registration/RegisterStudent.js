@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { FaArrowLeft } from "react-icons/fa";
+import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import profile from '../../Asserts/Images/profile.jpg';
+import axiosInstance from '../Constants/Baseurl';
+import axiosMultipartInstance from '../Constants/FornDataUrl';
+import { toast } from 'react-toastify';
 
 function RegisterStudent() {
   const navigate = useNavigate();
-  const [showpassword, setShowPassword] = useState(false);
-  const [showpassword1, setShowPassword1] = useState(false);
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword1, setShowPassword1] = useState(false);
   const [selectedImage, setSelectedImage] = useState(profile);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -19,114 +22,124 @@ function RegisterStudent() {
     confirmPassword: '',
     dateOfBirth: '',
     gender: '',
+    profile: null,
   });
   const [errors, setErrors] = useState({});
 
-  const tooglePasswordVisibility = () => {
-    setShowPassword(!showpassword);
-  };
-  const tooglePasswordVisibility1 = () => {
-    setShowPassword1(!showpassword1);
-  };
-
-  const goback = () => {
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  }
+  const togglePasswordVisibility1 = () => {
+    setShowPassword1(!showPassword1);
+  }
+  const goBack = () => {
     navigate(-1);
-  };
+  }
 
   const handleImageChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData((prevData) => ({
+        ...prevData,
+        profile: file,
+      }));
       const reader = new FileReader();
-      reader.onload = (event) => {
-        setSelectedImage(event.target.result);
-      };
-      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = (event) => setSelectedImage(event.target.result);
+      reader.readAsDataURL(file);
     }
   };
 
   const handleImageClick = () => {
     document.getElementById('fileInput').click();
-  };
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: '', // Clear error for the current field
+      [name]: '',
     }));
+    console.log({ ...formData, [name]: value });
   };
-
 
   const validateFields = () => {
     const newErrors = {};
-
-    // Validate first name (only letters)
     if (!formData.firstName) {
       newErrors.firstName = 'First Name is required';
-    } else if (!/^[A-Za-z]+$/.test(formData.firstName)) {
+    } else if (!/^[A-Za-z\s]+$/.test(formData.firstName)) {
       newErrors.firstName = 'First Name must contain only letters';
     }
-
-    // Validate last name (only letters)
     if (!formData.lastName) {
       newErrors.lastName = 'Last Name is required';
-    } else if (!/^[A-Za-z]+$/.test(formData.lastName)) {
+    }
+    else if (!/^[A-Za-z\s]+$/.test(formData.lastName)) {
       newErrors.lastName = 'Last Name must contain only letters';
     }
-
-    // Validate mobile number (10 digits)
     if (!formData.mobileNumber) {
       newErrors.mobileNumber = 'Mobile Number is required';
-    } else if (!/^\d{10}$/.test(formData.mobileNumber)) {
+    }
+    else if (!/^\d{10}$/.test(formData.mobileNumber)) {
       newErrors.mobileNumber = 'Mobile Number must be 10 digits';
     }
-
-    // Validate email format
     if (!formData.email) {
       newErrors.email = 'E-Mail is required';
-    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
+    }
+    else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
       newErrors.email = 'Email must be in correct format';
     }
-
-    // Validate password
     if (!formData.password) {
       newErrors.password = 'Password is required';
-    } else if (
-      !/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{6,}/.test(formData.password)
-    ) {
-      newErrors.password =
-        'Password must be at least 6 characters long, and include a combination of uppercase, lowercase, number, and symbol';
     }
-
-    // Validate confirm password
+    else if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{6,}/.test(formData.password)) {
+      newErrors.password = 'Password must be at least 6 characters long, and include a combination of uppercase, lowercase, number, and symbol';
+    }
     if (!formData.confirmPassword) {
       newErrors.confirmPassword = 'Confirm Password is required';
-    } else if (formData.password !== formData.confirmPassword) {
+    }
+    else if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
     }
-
-    // Validate date of birth
-    if (!formData.dateOfBirth) newErrors.dateOfBirth = 'Date of Birth is required';
-
-    // Validate gender
-    if (!formData.gender) newErrors.gender = 'Gender is required';
-
+    if (!formData.dateOfBirth) {
+      newErrors.dateOfBirth = 'Date of Birth is required';
+    }
+    if (!formData.gender) {
+      newErrors.gender = 'Gender is required';
+    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (validateFields()) {
-      console.log('Form submitted:', formData);
+      const submitData = new FormData();
+      Object.keys(formData).forEach((key) => {
+        submitData.append(key, formData[key]);
+      });
+
+      axiosMultipartInstance.post('/Studentreg', submitData)
+        .then((response) => {
+          console.log('Success:', response.data);
+          toast.success(response.data.msg)
+          navigate('/StudentLogin');
+
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 409) {
+            toast.warning(error.response.data.msg)
+          } else {
+            console.error('Error:', error);
+            toast.error('An error occurred. Please try again.')
+          }
+        });
     }
   };
+
 
 
   return (
@@ -134,7 +147,7 @@ function RegisterStudent() {
       <div className="container stu_reg_container">
         <div className="row stu_login_main">
           <div className="col-3 stu_login_main_text">
-            <FaArrowLeft size={40} onClick={goback} />
+            <FaArrowLeft size={40} onClick={goBack} />
           </div>
           <div className="col-9">
             <h1>REGISTER - STUDENT</h1>
@@ -252,7 +265,7 @@ function RegisterStudent() {
               <div className="stu_password-input-wrapper">
                 <label className="mb-2">Password</label>
                 <input
-                  type={showpassword ? 'text' : 'password'}
+                  type={showPassword ? 'text' : 'password'}
                   name="password"
                   className={`stu_login_input_style form-control ${errors.password ? 'is-invalid' : ''}`}
                   value={formData.password}
@@ -260,8 +273,8 @@ function RegisterStudent() {
                 />
                 {/* Conditionally render the icon if there's no password error */}
                 {!errors.password && (
-                  <span className="stu_password-toggle-icon" onClick={tooglePasswordVisibility}>
-                    {showpassword ? <FaEyeSlash /> : <FaEye />}
+                  <span className="stu_password-toggle-icon" onClick={togglePasswordVisibility}>
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
                   </span>
                 )}
                 {errors.password && <div className="invalid-feedback">{errors.password}</div>}
@@ -272,7 +285,7 @@ function RegisterStudent() {
               <div className="stu_password-input-wrapper">
                 <label className="mb-2">Confirm Password</label>
                 <input
-                  type={showpassword1 ? 'text' : 'password'}
+                  type={showPassword1 ? 'text' : 'password'}
                   name="confirmPassword"
                   className={`stu_login_input_style form-control ${errors.confirmPassword ? 'is-invalid' : ''}`}
                   value={formData.confirmPassword}
@@ -280,8 +293,8 @@ function RegisterStudent() {
                 />
                 {/* Conditionally render the icon if there's no confirmPassword error */}
                 {!errors.confirmPassword && (
-                  <span className="stu_password-toggle-icon" onClick={tooglePasswordVisibility1}>
-                    {showpassword1 ? <FaEyeSlash /> : <FaEye />}
+                  <span className="stu_password-toggle-icon" onClick={togglePasswordVisibility1}>
+                    {showPassword1 ? <FaEyeSlash /> : <FaEye />}
                   </span>
                 )}
                 {errors.confirmPassword && <div className="invalid-feedback">{errors.confirmPassword}</div>}
