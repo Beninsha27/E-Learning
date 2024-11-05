@@ -3,6 +3,8 @@ import { FaArrowLeft } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import profile from '../../Asserts/Images/profile.jpg';
+import axiosMultipartInstance from '../Constants/FornDataUrl';
+import { toast } from 'react-toastify';
 
 function RegisterTrainer() {
     const [selectedImage, setSelectedImage] = useState(profile);
@@ -18,7 +20,8 @@ function RegisterTrainer() {
         mobile: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        profile: null
     })
 
     const [error, setError] = useState({});
@@ -34,12 +37,15 @@ function RegisterTrainer() {
         setShowPassword1(!showpassword1)
     }
     const handleImageChange = (e) => {
-        if (e.target.files && e.target.files[0]) {
+        const file = e.target.files[0];
+        if (file) {
+            setFormData((prevData) => ({
+                ...prevData,
+                profile: file,
+            }));
             const reader = new FileReader();
-            reader.onload = (event) => {
-                setSelectedImage(event.target.result);
-            };
-            reader.readAsDataURL(e.target.files[0]);
+            reader.onload = (event) => setSelectedImage(event.target.result);
+            reader.readAsDataURL(file);
         }
     };
 
@@ -59,6 +65,7 @@ function RegisterTrainer() {
             ...prevErrors,
             [name]: ''
         }))
+        console.log({ ...formData, [name]: value });
     }
 
     const validateFields = () => {
@@ -67,7 +74,7 @@ function RegisterTrainer() {
         // Validate  name (only letters)
         if (!formData.name) {
             newErrors.name = 'First Name is required';
-        } else if (!/^[A-Za-z]+$/.test(formData.name)) {
+        } else if (!/^[A-Za-z\s]+$/.test(formData.name)) {
             newErrors.name = 'First Name must contain only letters';
         }
 
@@ -111,14 +118,14 @@ function RegisterTrainer() {
         // Validate  Course 
         if (!formData.course) {
             newErrors.course = 'Course Name is required';
-        } else if (!/^[A-Za-z]+$/.test(formData.course)) {
+        } else if (!/^[A-Za-z\s]+$/.test(formData.course)) {
             newErrors.course = 'First Name must contain only letters';
         }
 
         // Validate  Qualification
         if (!formData.qualification) {
             newErrors.qualification = 'Qualification is required';
-        } else if (!/^[A-Za-z]+$/.test(formData.qualification)) {
+        } else if (!/^[A-Za-z\s\.]+$/.test(formData.qualification)) {
             newErrors.qualification = 'First Name must contain only letters';
         }
 
@@ -134,8 +141,28 @@ function RegisterTrainer() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         if (validateFields()) {
-            console.log('Form submitted:', formData);
+            const submitData = new FormData();
+            Object.keys(formData).forEach((key) => {
+                submitData.append(key, formData[key]);
+            });
+
+            axiosMultipartInstance.post('/Trainerreg', submitData)
+                .then((response) => {
+                    console.log('Success:', response.data);
+                    toast.success(response.data.msg)
+                    navigate('/TrainerLogin');
+
+                })
+                .catch((error) => {
+                    if (error.response && error.response.status === 409) {
+                        toast.warning(error.response.data.msg)
+                    } else {
+                        console.error('Error:', error);
+                        toast.error('An error occurred. Please try again.')
+                    }
+                });
         }
     };
 
@@ -322,14 +349,10 @@ function RegisterTrainer() {
                                     value={formData.confirmPassword}
                                     onChange={handleChange}
                                     className={`trainer_login_input_style form-control ${error.confirmPassword ? 'is-invalid' : ''}`}
-                                    />
-                                {/* <span className='trainer_password-toggle-icon'
-                                    onClick={tooglePasswordVisibility1}>
-                                    {showpassword1 ? <FaEyeSlash /> : <FaEye />}
-                                </span> */}
+                                />
                                 {/* Conditionally render the icon if there's no password error */}
                                 {!error.confirmPassword && (
-                                    <span className="stu_password-toggle-icon" onClick={tooglePasswordVisibility}>
+                                    <span className="stu_password-toggle-icon" onClick={tooglePasswordVisibility1}>
                                         {showpassword1 ? <FaEyeSlash /> : <FaEye />}
                                     </span>
                                 )}
