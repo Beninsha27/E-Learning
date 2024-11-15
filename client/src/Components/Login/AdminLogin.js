@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../Asserts/Styles/Login.css';
 import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 function AdminLogin() {
     const [showPassword, setShowPassword] = useState(false);
@@ -27,13 +28,13 @@ function AdminLogin() {
     const handleLogin = () => {
         if (data.username === 'admin' && data.password === 'admin123') {
             localStorage.setItem("adminlog", 1);
-            alert("Login Success !")
+            toast.success("Login Success !")
             window.location.reload()
         } else if (data.username != 'admin' || data.password != 'admin123') {
-            alert("Username or Password Incorrect !")
+            toast.warning("Username or Password Incorrect !")
         }
         else {
-            alert("Something went wrong !")
+            toast.error("Something went wrong !")
         }
     };
 

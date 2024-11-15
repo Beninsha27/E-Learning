@@ -59,7 +59,7 @@ const trainerSchema = mongoose.Schema({
         default: false
     },
 
-    isactive: {
+    isActive: {
         type: Boolean,
         default: false
     }

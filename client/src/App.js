@@ -19,6 +19,8 @@ import RegisterParent from './Components/Registration/RegisterParent';
 import LoginNav from './Components/NavBar/LoginNav';
 import AdminNav from './Components/NavBar/AdminNav';
 import Nav from './Components/NavBar/Nav';
+import StudentNav from './Components/NavBar/StudentNav';
+import AdminViewStudents from './Components/Admin/AdminViewStudents';
 
 function App() {
 
@@ -33,8 +35,12 @@ function App() {
 
           {/* Admin */}
           <Route path="/AdminHome" element={[<AdminNav />, <AdminHome />]} />
+          <Route path="/AdminViewStudent" element={[<AdminNav />, <AdminViewStudents />]} />
 
           {/* Student */}
+          <Route exact path="/StudentHome" element={[<StudentNav/>, <Carousal />, <Features />, <AboutUs />, <Footer />]} />
+          <Route path="/Studentabout" element={[<StudentNav />, <AboutUs />, <Footer />]} />
+
           <Route path="/StudentLogin" element={[<LoginNav />, <LoginStudent />, <Footer />]} />
           <Route path="/StudentReg" element={[<LoginNav />, <RegisterStudent />, <Footer />]} />
 
