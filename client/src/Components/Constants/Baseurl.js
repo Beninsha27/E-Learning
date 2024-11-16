@@ -6,6 +6,7 @@ const axiosInstance = axios.create({
     headers: {
         'Content-Type': 'application/json',
     },
+    url: "http://localhost:4000"
 });
 
 export default axiosInstance

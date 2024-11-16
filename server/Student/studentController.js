@@ -191,7 +191,8 @@ const registerStudent = async (req, res) => {
             mobileNumber: req.body.mobileNumber,
             email: req.body.email,
             password: req.body.password,
-            profile: req.file ? req.file.path : null // Check if file exists before saving path
+            profile: req.file 
+            // ? req.file.path : null 
         });
 
         const data = await newStudent.save();

@@ -21,6 +21,8 @@ import AdminNav from './Components/NavBar/AdminNav';
 import Nav from './Components/NavBar/Nav';
 import StudentNav from './Components/NavBar/StudentNav';
 import AdminViewStudents from './Components/Admin/AdminViewStudents';
+import AdminViewTrainers from './Components/Admin/AdminViewTrainers';
+import AdminViewTrainerReq from './Components/Admin/AdminViewTrainerReq';
 
 function App() {
 
@@ -36,11 +38,12 @@ function App() {
           {/* Admin */}
           <Route path="/AdminHome" element={[<AdminNav />, <AdminHome />]} />
           <Route path="/AdminViewStudent" element={[<AdminNav />, <AdminViewStudents />]} />
+          <Route path="/AdminViewTrainers" element={[<AdminNav />, <AdminViewTrainers />]} />
+          <Route path="/AdminViewTrainersReq" element={[<AdminNav />, <AdminViewTrainerReq />]} />
 
           {/* Student */}
           <Route exact path="/StudentHome" element={[<StudentNav/>, <Carousal />, <Features />, <AboutUs />, <Footer />]} />
           <Route path="/Studentabout" element={[<StudentNav />, <AboutUs />, <Footer />]} />
-
           <Route path="/StudentLogin" element={[<LoginNav />, <LoginStudent />, <Footer />]} />
           <Route path="/StudentReg" element={[<LoginNav />, <RegisterStudent />, <Footer />]} />
 

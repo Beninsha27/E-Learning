@@ -83,6 +83,13 @@ const trainerLogin = async (req, res) => {
             });
         }
 
+        if (!trainers.isActive) {
+            return res.status(403).json({
+                status: 403,
+                msg: "Account is inactive. Please contact admin.",
+            });
+        }
+
         if (trainers.password !== password) {
             return res.status(401).json({
                 status: 401,
@@ -112,6 +119,7 @@ const trainerLogin = async (req, res) => {
         });
     }
 };
+
 
 // View All trainers
 const ViewAllTrainers = (req, res) => {
