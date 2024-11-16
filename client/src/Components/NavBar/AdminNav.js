@@ -30,10 +30,10 @@ function AdminNav() {
                                     <Link class="nav-link nav_text_style" to="/AdminHome">HOME</Link>
                                 </li>
                                 <li class="nav-item p-2">
-                                    <Link class="nav-link nav_text_style" to="">STUDENTS</Link>
+                                    <Link class="nav-link nav_text_style" to="/AdminViewStudent">STUDENTS</Link>
                                 </li>
                                 <li class="nav-item p-2">
-                                    <Link class="nav-link nav_text_style" to="">TRAINERS</Link>
+                                    <Link class="nav-link nav_text_style" to="/AdminViewTrainers">TRAINERS</Link>
                                 </li>
                                 <li class="nav-item p-2">
                                     <Link class="nav-link nav_text_style" to="">VIEW ALL COURSES</Link>
