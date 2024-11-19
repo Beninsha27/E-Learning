@@ -36,12 +36,12 @@ function LoginTrainer() {
                 console.log('Success:', response);
 
                 // Save the student ID to localStorage
-                localStorage.setItem("logstudentid", response.data.id);
+                localStorage.setItem("logtrainerid", response.data.id);
                 console.log(response.data.id);
 
                 // Display login success notification
                 toast.success('Logged in successfully');
-                navigate('');
+                navigate('/TrainerHome');
             })
             .catch((error) => {
                 if (error.response && error.response.status === 404) {
