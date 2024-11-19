@@ -23,6 +23,11 @@ import StudentNav from './Components/NavBar/StudentNav';
 import AdminViewStudents from './Components/Admin/AdminViewStudents';
 import AdminViewTrainers from './Components/Admin/AdminViewTrainers';
 import AdminViewTrainerReq from './Components/Admin/AdminViewTrainerReq';
+import TrainerNav from './Components/NavBar/TrainerNav';
+import TrainerViewCourse from './Components/Trainer/TrainerViewCourse';
+import TrainerAddCourse from './Components/Trainer/TrainerAddCourse';
+import AdminViewCourse from './Components/Admin/AdminViewCourse';
+import AdminViewCourseReq from './Components/Admin/AdminViewCourseReq';
 
 function App() {
 
@@ -40,6 +45,8 @@ function App() {
           <Route path="/AdminViewStudent" element={[<AdminNav />, <AdminViewStudents />]} />
           <Route path="/AdminViewTrainers" element={[<AdminNav />, <AdminViewTrainers />]} />
           <Route path="/AdminViewTrainersReq" element={[<AdminNav />, <AdminViewTrainerReq />]} />
+          <Route path="/AdminViewCourse" element={[<AdminNav />, <AdminViewCourse />]} />
+          <Route path="/AdminViewCoureRequest" element={[<AdminNav />, <AdminViewCourseReq />]} />
 
           {/* Student */}
           <Route exact path="/StudentHome" element={[<StudentNav/>, <Carousal />, <Features />, <AboutUs />, <Footer />]} />
@@ -48,8 +55,12 @@ function App() {
           <Route path="/StudentReg" element={[<LoginNav />, <RegisterStudent />, <Footer />]} />
 
           {/* Trainer */}
+          <Route exact path="/TrainerHome" element={[<TrainerNav/>, <Carousal />, <Features />, <AboutUs />, <Footer />]} />
+          <Route path="/Trainerabout" element={[<TrainerNav />, <AboutUs />, <Footer />]} />
           <Route path="/TrainerLogin" element={[<LoginNav />, <LoginTrainer />, <Footer />]} />
           <Route path="/TrainerReg" element={[<LoginNav />, <RegisterTrainer />, <Footer />]} />
+          <Route path="/TrainerAddCourse" element={[<TrainerNav />, <TrainerAddCourse />, <Footer />]} />
+          <Route path="/TrainerViewCourse" element={[<TrainerNav />, <TrainerViewCourse />, <Footer />]} />
 
           {/* Parent */}
           <Route path="/ParentLogin" element={[<LoginNav />, <LoginParent />, <Footer />]} />

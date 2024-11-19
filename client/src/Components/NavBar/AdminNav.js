@@ -36,7 +36,7 @@ function AdminNav() {
                                     <Link class="nav-link nav_text_style" to="/AdminViewTrainers">TRAINERS</Link>
                                 </li>
                                 <li class="nav-item p-2">
-                                    <Link class="nav-link nav_text_style" to="">VIEW ALL COURSES</Link>
+                                    <Link class="nav-link nav_text_style" to="/AdminViewCourse">COURSES</Link>
                                 </li>
                                 <li class="nav-item p-2">
                                     <Link class="nav-link nav_text_style" to="">PARENTS</Link>
